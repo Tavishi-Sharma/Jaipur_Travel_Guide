@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "933528311426",
+    "project_id": "jaipur-travel-guide-415016",
+    "storage_bucket": "jaipur-travel-guide-415016.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933528311426:android:567d387f896796a5df069b",
+        "android_client_info": {
+          "package_name": "com.example.jaipur_travel_guide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFV_LFRW2yo48LrIdsSKb6JRrR5cp_joA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
