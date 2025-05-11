@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 if (ContextCompat.checkSelfPermission(MainActivity.this,
                         Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     // Permission is already granted, start the DetailActivity
-                    startActivity(new Intent(MainActivity.this,DetailActivity.class));
+                    startActivity(new Intent(MainActivity.this,RegistrationActivity.class));
                 } else {
                     // Permission is not granted, request the permission
                     ActivityCompat.requestPermissions(MainActivity.this,
