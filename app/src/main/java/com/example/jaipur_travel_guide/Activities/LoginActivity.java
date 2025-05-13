@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,MainPage.class));
+                startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
             }
         });
         usernameTxt=findViewById(R.id.userlogin);

@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.jaipur_travel_guide.Activities.LoginActivity;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.local.BundleCache;
 
 public class ProfileFragment extends Fragment {
 
@@ -42,13 +45,14 @@ public class ProfileFragment extends Fragment {
     private FirebaseFirestore db;
     private DocumentReference userDocRef;
     private ListenerRegistration userListener;
-    private ImageView logoutBtn;
+    private Button logoutBtn;
     private Button saveButton;
+    private ImageView favForward;
+    private ImageView revForward;
 
-
-    private static final String ARG_USER_ID = "userId";
 
     private String userId;
+    private static final String ARG_USER_ID = "userId";
 
     public ProfileFragment() {
     }
@@ -79,7 +83,9 @@ public class ProfileFragment extends Fragment {
         emailTxt = rootView.findViewById(R.id.emailTxt);
         saveButton = rootView.findViewById(R.id.savebutton);
         logoutBtn=rootView.findViewById(R.id.logoutbtn);
+        favForward=rootView.findViewById(R.id.favForward);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
         if (currentUser != null) {
             String email = currentUser.getEmail();
             if (email != null) {
@@ -93,6 +99,13 @@ public class ProfileFragment extends Fragment {
                 logoutUser();
             }
         });
+        favForward.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                replaceFragment(new FavoriteFragment());
+            }
+        });
 
 
         db = FirebaseFirestore.getInstance();
@@ -103,6 +116,7 @@ public class ProfileFragment extends Fragment {
             userListener = userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+
                     if (e != null) {
                         Log.w(TAG, "Listen failed", e);
                         return;
@@ -143,13 +157,6 @@ public class ProfileFragment extends Fragment {
         if (currentUser != null) {
             String uid = currentUser.getUid();
             String newUsername = usernameEditText.getText().toString().trim();
-            String email = emailTxt.getText().toString().trim();
-
-            if (!email.isEmpty()) {
-                DocumentReference ur = db.collection("User").document(uid);
-                ur.update("email", email);
-            }
-
 
             if (!newUsername.isEmpty()) {
                 DocumentReference userRef = db.collection("User").document(uid);
@@ -194,6 +201,13 @@ public class ProfileFragment extends Fragment {
             userListener.remove();
         }
 
+    }
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
 
