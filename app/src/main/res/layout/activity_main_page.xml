@@ -15,7 +15,7 @@
         android:id="@+id/navigationview"
         app:headerLayout="@layout/header"
         app:menu="@menu/side_drawer_menu"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_gravity="start"/>
 
     <ScrollView
